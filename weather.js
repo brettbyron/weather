@@ -44,14 +44,27 @@ let handleWeatherResponse = function(response) {
   window.response = response
 
   // **** your code starts here - don't modify anything else. you will be sad.
+  $(".current").empty();
+    for(let i=0; i<1; i++) {
+      let html = "<div class = 'col'>";
+      html = html + "<h1 id='current-conditions-icon'>";
+      html = html + icon(response.daily.data[i].icon) + "</h1>";
+      html = html + "<h1 id='location'>" + $("#location-name").val() + "</h1>"
+      html = html + "<h2>" + Math.round(response.daily.data[i].temperatureHigh) + " | " + Math.round(response.daily.data[i].temperatureLow) + "</h2>";
+      html = html + "<h2 id='current-conditions-text'>"
+      html = html + response.daily.data[i].summary + "</h2></div>";
+  $(".current").append(html);
+  }
+  $(".current").fadeIn(1000);
+
+
   $(".forecast").empty();
-    let weather = "";
-    for(let i=0; i<6; i++) {
-      let weather = "<div class = 'col'>";
-      weather = weather + icon(response.daily.data[i].icon)
-      weather = weather + "<h4>" + Math.round(response.daily.data[i].temperatureHigh) + " | " + Math.round(response.daily.data[i].temperatureLow) + "</h4>";
-      weather = weather + "<h5>" + response.daily.data[i].summary + "</h5></div>";
-  $(".forecast").append(weather);
+    for(let i=1; i<6; i++) {
+      let html = "<div class = 'col'>";
+      html = html + icon(response.daily.data[i].icon);
+      html = html + "<h4>" + Math.round(response.daily.data[i].temperatureHigh) + " | " + Math.round(response.daily.data[i].temperatureLow) + "</h4>";
+      html = html + "<h5>" + response.daily.data[i].summary + "</h5></div>";
+  $(".forecast").append(html);
   }
   $(".forecast").fadeIn(2000);
 
